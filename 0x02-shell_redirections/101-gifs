@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -name "*.gif" | rev | cut -d / -f 1 | rev | cut -d . -f 1
+LC_ALL=C && ls -laR | (find *.gif && find .*.gif) | sort | rev | cut -b 5- | rev

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# printing Best School 10 times using while
+count=0
+while [[ "$count" -lt 10 ]]
+do
+    echo "Best School"
+    if [[ "$count" -eq 8 ]]
+    then
+        echo "Hi"
+    fi
+    (( count++ ))
+done

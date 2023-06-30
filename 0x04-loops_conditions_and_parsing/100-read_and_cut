@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#using for loop to display content of given file
+file=$(cat /etc/passwd)
+for line in "${file[@]}"
+do
+  echo "$line" | cut -d ':' -f 1,3,6
+done

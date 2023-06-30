@@ -5,7 +5,7 @@ minutes=0
 while [[ "$hours" -le 12 ]]
 do
     echo "Hour: $hours"
-    while [[ "$minutes" -lt 60 ]]
+    while [[ "$hours" -lt 12 ]] && [[ "$minutes" -lt 60 ]]
     do
         echo "$minutes"
         (( minutes++ ))

@@ -2,7 +2,7 @@
 # printing numbers from 1 to 20 using while and case
 hours=0
 minutes=1
-while [[ "$hours" -lt 12 ]]
+while [[ "$hours" -le 12 ]]
 do
     echo "Hour: $hours"
     while [[ "$minutes" -lt 60 ]]

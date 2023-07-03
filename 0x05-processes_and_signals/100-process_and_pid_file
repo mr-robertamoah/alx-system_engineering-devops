@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# a script that runs infinitly and traps SIGTERM and SIGQUIT
+file="/var/run/myscript.pid"
+pid="$$"
+echo $pid > $file
+sigquitHandler() {
+    kill $pid
+}
+
+sigtermHandler() {
+    echo "I hate the kill command"
+    rm $file
+    kill "$$"
+}
+
+trap sigtermHander SIGTERM
+trap sigquitHander SIGQUIT
+trap "echo Y U no love me?!" SIGINT
+
+while true
+do
+  echo "To infinity and beyond"
+  sleep 2
+done;

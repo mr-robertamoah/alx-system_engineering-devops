@@ -2,15 +2,16 @@
 # a script that runs infinitly and traps SIGTERM and SIGQUIT
 file="/var/run/myscript.pid"
 pid="$$"
-echo $pid > $file
+echo "$pid" > $file
 sigquitHandler() {
-    kill $pid
+    rm "$file"
+    exit
 }
 
 sigtermHandler() {
     echo "I hate the kill command"
-    rm $file
-    kill "$$"
+    rm "$file"
+    exit
 }
 
 trap sigtermHander SIGTERM

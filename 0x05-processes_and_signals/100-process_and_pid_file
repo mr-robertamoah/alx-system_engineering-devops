@@ -4,6 +4,7 @@ file="/var/run/myscript.pid"
 pid="$$"
 echo "$pid" > $file
 sigquitHandler() {
+    echo "I hate the kill command"
     rm "$file"
     exit
 }

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Install nginx server and add content to index.html
+
+apt-get -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+
+service nginx start
+
+mkdir -p /var/www/html/
+
+sudo chown -R $USER:$USER /var/www/html
+sudo chmod -R 755 /var/www
+
+echo 'Hello World!' > /var/www/html/index.html
+
+$CONFIG=\
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+
+service nginx restart

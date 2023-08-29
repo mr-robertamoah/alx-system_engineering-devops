@@ -4,13 +4,14 @@
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install nginx
-sudo ufw allow 'Nginx HTTP'
-
 sudo service nginx start
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+sudo echo 'Hello World!' | tee /var/www/html/index.html
 
-echo 'Hello World!' > /var/www/html/index.html
-
-echo "server {
+sudo chown -R "$USER":"$USER" /etc/nginx/sites-enabled
+sudo chmod -R 755 /etc/nginx/sites-enabled
+sudo echo "server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
@@ -26,6 +27,6 @@ echo "server {
         location / {
                 try_files $uri $uri/ =404;
         }
-}" > /etc/nginx/sites-enabled/default
+}" | tee /etc/nginx/sites-enabled/default
 
 sudo service nginx restart

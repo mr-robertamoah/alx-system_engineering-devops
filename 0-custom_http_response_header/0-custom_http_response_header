@@ -2,6 +2,8 @@
 # Install nginx server and configure it to return custom response header
 # shellcheck disable=SC2154
 
+HOSTNAME=$(hostname)
+
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install nginx

@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 # Install nginx server and configure it to return custom response header
-# shellcheck disable=SC2154
-
-HOSTNAME=$(hostname)
 
 sudo apt -y update
 sudo apt -y upgrade
@@ -15,6 +12,8 @@ sudo echo -e "Ceci n'est pas une page\n" | tee /var/www/html/404.html
 
 sudo chown -R "$USER":"$USER" /etc/nginx/sites-enabled
 sudo chmod -R 755 /etc/nginx/sites-enabled
+
+# shellcheck disable=SC2154
 sudo echo "
 server {
         listen 80 default_server;
@@ -25,19 +24,18 @@ server {
 
         server_name _;
 
+        add_header X-Served-By \$hostname;
+
         location /redirect_me {
-                add_header X-Served-By \$HOSTNAME;
                 return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
         }
 
         location / {
-                add_header X-Served-By \$HOSTNAME;
                 try_files \$uri \$uri/ =404;
         }
 
         error_page 404 /404.html;
         location = /404.html {
-                add_header X-Served-By \$HOSTNAME;
                 internal;
         }
 }" | sudo tee /etc/nginx/sites-enabled/default

@@ -1,0 +1,9 @@
+# configuration file for ssh
+
+Host *
+    PasswordAuthentication no
+    IdentityFile ~/.ssh/school
+    HashKnownHosts yes
+    GSSAPIAuthentication yes
+    HostName 100.24.235.0
+    User ubuntu

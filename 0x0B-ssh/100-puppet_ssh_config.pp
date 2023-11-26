@@ -1,5 +1,11 @@
-file {'config':
+file {'/etc/ssh/ssh_config':
     ensure  => 'present',
-    path    => '/etc/ssh/ssh_config',
-    content => '\n  PasswordAuthentication no\n  IdentityFile ~/.ssh/school'
+    content => "
+    Host *
+      IdentityFile ~/.ssh/school
+      PasswordAuthentication no
+      SendEnv LANG LC_*
+      HashKnownHosts yes
+      GSSAPIAuthentication yes
+  "
 }

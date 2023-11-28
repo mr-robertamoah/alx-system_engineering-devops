@@ -34,18 +34,20 @@ server {
 
         server_name _;
 
-        location /redirect_me {
-                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-        }
+        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
 
         location / {
                 try_files /index.html =404;
         }
 
-        error_page 404 /404.html;
-        location /404.html {
-                root /var/www/html;
-        }
+	error_page 404 /404.html;
+	location / {
+        	return 404;
+	}
+	location = /404.html {
+        	root /var/www/html;
+	        internal;
+	}
 }',
     notify  => Service['nginx']
 }

@@ -34,10 +34,12 @@ server {
 
         server_name _;
 
-        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
-
-        location / {
+        location = / {
                 try_files /index.html =404;
+        }
+
+	location = /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
         }
 
 	error_page 404 /404.html;

@@ -12,10 +12,10 @@ sudo echo 'Hello World!' | tee /var/www/html/index.html
 sudo chown -R "$USER":"$USER" /etc/nginx/sites-enabled
 sudo chmod -R 755 /etc/nginx/sites-enabled
 
-new_string="server_name _;\n\n        location / {\n                try_files /index.html =404;\n        }"
+new_string="server_name _;\n\n        location = /redirect_me {\n                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n        }"
 sudo sed -i "s#server_name _;#$new_string#" /etc/nginx/sites-enabled/default
 
-new_string="server_name _;\n\n        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+new_string="server_name _;\n\n        location = / {\n                try_files /index.html =404;\n        }"
 sudo sed -i "s#server_name _;#$new_string#" /etc/nginx/sites-enabled/default
 
 sudo service nginx reload

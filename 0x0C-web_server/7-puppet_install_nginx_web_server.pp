@@ -1,0 +1,57 @@
+# installs and configures nginx
+
+exec {'update':
+    command => 'sudo apt-get update -y && sudo apt-get upgrade -y',
+    path    => ['/usr/bin']
+}
+
+package {'nginx':
+    ensure => 'installed',
+}
+
+file {'index':
+    ensure  => 'present',
+    path    => '/var/www/html/index.html',
+    content => "Hello World!\n"
+}
+
+file {'404':
+    ensure  => 'present',
+    path    => '/var/www/html/404.html',
+    content => "Ceci n\'est pas une page\n\n"
+}
+
+file {'default':
+    ensure  => 'present',
+    path    => '/etc/nginx/sites-enabled/default',
+    content => '
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+
+        location / {
+                try_files \$uri \$uri/ =404;
+        }
+
+        error_page 404 /404.html;
+        location /404.html {
+                root /var/www/html;
+        }
+}',
+    notify  => Service['nginx']
+}
+
+service {'nginx':
+    ensure  => 'running',
+    enable  => 'true',
+    require => File['default']
+}

@@ -39,7 +39,7 @@ server {
         }
 
         location / {
-                try_files \$uri \$uri/ =404;
+                try_files /index.html =404;
         }
 
         error_page 404 /404.html;

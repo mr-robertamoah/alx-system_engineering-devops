@@ -19,4 +19,7 @@ sudo sed -i "s#server_name _;#$new_string#" /etc/nginx/sites-enabled/default
 new_string="server_name _;\n\n        location /redirect_me {\n                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n        }"
 sudo sed -i "s#server_name _;#$new_string#" /etc/nginx/sites-enabled/default
 
+new_string="server_name _;\n\n        location / {\n                try_files /index.html =404;\n        }"
+sudo sed -i "s#server_name _;#$new_string#" /etc/nginx/sites-enabled/default
+
 sudo service nginx reload

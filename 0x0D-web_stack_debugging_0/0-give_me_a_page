@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# a script the solves the error: (52) Empty reply from server from an apache server
+sudo service apache2 restart

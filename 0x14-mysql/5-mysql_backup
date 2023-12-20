@@ -3,5 +3,5 @@
 
 sql_file="backup.sql"
 tar_file="$(date +'%d-%m-%Y').tar.gz"
-mysqldump --all-databases -u root -p"$1" > "$sql_file"
+mysqldump --all-databases -u root --password="$1" > "$sql_file"
 tar -czvf "$tar_file" "$sql_file"

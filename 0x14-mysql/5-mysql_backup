@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# script to create mysql backup file and compress file to tar file
+
+sql_file="backup.sql"
+tar_file="$(date +'%d-%m-%Y').tar.gz"
+mysqldump --all-databases -u root -p"$1" > "$sql_file"
+tar -czvf "$tar_file" "$sql_file"

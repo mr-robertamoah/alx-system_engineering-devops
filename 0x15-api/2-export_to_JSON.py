@@ -2,6 +2,7 @@
 
 """
 script returns information about Employee TODO list
+    and creates csv file based on user id
 """
 
 
@@ -9,17 +10,24 @@ import requests
 import sys
 import json
 
+
 userId = sys.argv[1]
 userUrl = f"https://jsonplaceholder.typicode.com/users?id={userId}"
 todoUrl = f"https://jsonplaceholder.typicode.com/todos?userId={userId}"
+filename = f"{userId}.json"
 
 res = requests.get(userUrl)
 user = res.json()[0]
 res = requests.get(todoUrl)
 todos = res.json()
 
-completed = len(list(filter(lambda x: x["completed"] is True, todos)))
-print(f"Employee {user['name']} is done with tasks ({completed}/20):")
-for todo in todos:
-    if todo["completed"]:
-        print(f"\t {todo['title']}")
+a_dict = {}
+a_dict[userId] = []
+with open(filename, "w") as f:
+    for todo in todos:
+        a_dict[userId].append({
+                "task": todo["title"],
+                "completed": todo["completed"],
+                "username": user["username"],
+            })
+    json.dump(a_dict, f)

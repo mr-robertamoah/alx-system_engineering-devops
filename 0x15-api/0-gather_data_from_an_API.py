@@ -19,7 +19,7 @@ if __name__ == "__main__":
     todos = res.json()
 
     completed = len(list(filter(lambda x: x["completed"] is True, todos)))
-    print(f"Employee {user['name']} is done with tasks ({completed}/20):")
+    print(f"Employee {user['name']} is done with tasks({completed}/20):")
     for todo in todos:
         if todo["completed"]:
             print(f"\t {todo['title']}")

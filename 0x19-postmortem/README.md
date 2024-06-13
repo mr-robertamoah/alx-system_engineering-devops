@@ -1,5 +1,5 @@
 <p align='center'>
-<img src='https://drive.google.com/file/d/13BS3iYDnTekR2KDUcJBXfoOSkBHCZ3Cb/view?usp=sharing' alt='TalkTherapy logo'/>
+<img src='./talktherapy%20new%20black.png' alt='TalkTherapy logo'/>
 </p>
 
 # Postmortem
